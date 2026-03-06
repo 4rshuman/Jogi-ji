@@ -53,7 +53,7 @@ body{
 .scene{
   width:380px;
   max-width:90vw;
-  height:540px; /* Increased height to accommodate text below */
+  height:560px; /* Increased height again to ensure glow isn't cut off */
   perspective:1200px;
   display: flex;
   flex-direction: column;
@@ -104,22 +104,52 @@ body{
   flex-direction:column;
 }
 
-/* New Dark Pink Text Styling */
+/* --- NEW CSS for Glow --- */
 .love-note {
-  margin-top: 20px;
-  color: #c2185b; /* Dark Pink */
+  margin-top: 25px;
+  /* Keep the core text color dark pink */
+  color: #c2185b; 
   font-weight: bold;
   font-size: 1.2rem;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-  animation: pulse 2s infinite;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  
+  /* Apply a multi-layered light pink glow using text-shadow */
+  text-shadow: 
+    0 0 7px #fff,          /* White inner core */
+    0 0 10px #ffb3e6,      /* Light pink core */
+    0 0 21px #ffb3e6,      /* Diffused light pink */
+    0 0 42px #ff80cc,      /* Stronger pink outline */
+    0 0 82px #ff80cc;      /* Far diffused pink */
+    
+  /* Updated animation: keeps pulse and adds glow fluctuation */
+  animation: glowPulse 2.5s infinite alternate ease-in-out;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+@keyframes glowPulse {
+  0% { 
+    transform: scale(1);
+    /* Softer glow */
+    text-shadow: 
+      0 0 7px #fff,
+      0 0 10px #ffb3e6,
+      0 0 21px #ffb3e6;
+  }
+  100% { 
+    transform: scale(1.03);
+    /* Intense glow */
+    text-shadow: 
+      0 0 7px #fff,
+      0 0 10px #ffb3e6,
+      0 0 21px #ffb3e6,
+      0 0 42px #ff80cc, 
+      0 0 82px #ff80cc,
+      0 0 92px #ff80cc,
+      0 0 102px #ff80cc,
+      0 0 151px #ff80cc;
+  }
 }
+/* --- END NEW CSS --- */
 
 /* video */
 
@@ -228,8 +258,9 @@ h2{
     height:60px;
   }
 
+  /* Scene height adjustment for mobile to avoid clipping glow */
   .scene{
-    height:500px;
+    height:540px; 
   }
 
   #message{
